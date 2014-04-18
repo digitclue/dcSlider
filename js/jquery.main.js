@@ -38,11 +38,15 @@ jQuery(function(){
 				console.log('move');
 				e.preventDefault();
 				var pos = e.pageX - self.holderOffsetX;
-				if (pos > 0 && pos < self.holderWidth){
-					self.slider.css({
-						left: pos
-					});
+				if (pos < 0) {
+					pos = 0;
+				} else if (pos > self.holderWidth){
+					pos = self.holderWidth;
 				}
+				
+				self.slider.css({
+					left: pos
+				});
 			}
 			this.endHandler = function(e){
 				console.log('end');
