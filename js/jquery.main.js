@@ -38,11 +38,14 @@ jQuery(function(){
 				console.log('move');
 				e.preventDefault();
 				var pos = e.pageX - self.holderOffsetX;
-				if (pos > 0 && pos < self.holderWidth){
-					self.slider.css({
-						left: pos
-					});
+				
+				if (pos < 0){
+					pos = 0;
+				} else if (pos > self.holderWidth){
+					pos = self.holderWidth;
 				}
+
+				self.setPosition(pos);
 			}
 			this.endHandler = function(e){
 				console.log('end');
@@ -52,6 +55,11 @@ jQuery(function(){
 
 			this.slider.on('mousedown touchstart', this.startHandler);
 			jQuery(document).on('mouseup touchend', this.endHandler);
+		},
+		setPosition: function(pos){
+			self.slider.css({
+				left: pos
+			});
 		},
 		makeCallback:function(name){
 			if (typeof this.options[name] === 'function'){
