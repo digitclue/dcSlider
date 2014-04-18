@@ -38,14 +38,25 @@ jQuery(function(){
 				console.log('move');
 				e.preventDefault();
 				var pos = e.pageX - self.holderOffsetX;
+<<<<<<< HEAD
 				
 				if (pos < 0){
+=======
+				if (pos < 0) {
+>>>>>>> 808adbd80ca551e0d915c1f654a48502e7ecdcea
 					pos = 0;
 				} else if (pos > self.holderWidth){
 					pos = self.holderWidth;
 				}
+<<<<<<< HEAD
 
 				self.setPosition(pos);
+=======
+				
+				self.slider.css({
+					left: pos
+				});
+>>>>>>> 808adbd80ca551e0d915c1f654a48502e7ecdcea
 			}
 			this.endHandler = function(e){
 				console.log('end');
