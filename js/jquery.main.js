@@ -25,6 +25,11 @@ jQuery(function(){
 			this.slider = this.holder.find(this.options.slider);
 			this.holderWidth = this.holder.width();
 			this.holderOffsetX = this.holder.offset().left;
+
+			// set initial
+			this.slider.css({
+				left:0
+			});
 		},
 		attachEvents:function(){
 			var self = this;
@@ -44,7 +49,7 @@ jQuery(function(){
 				} else if (pos > self.holderWidth){
 					pos = self.holderWidth;
 				}
-				
+
 				self.setPosition(pos);
 			}
 			this.endHandler = function(e){
@@ -52,12 +57,27 @@ jQuery(function(){
 
 				jQuery(document).off('mousemove touchmove', self.moveHandler);
 			}
+			this.holderDownHandler = function(e){
+				e.preventDefault();
+
+				var curPos = e.pageX - self.holderOffsetX;
+				var sliderPos = parseInt(self.slider.css('left'));
+
+				if (curPos > sliderPos){
+					self.setPosition(sliderPos)
+				} else {
+
+				}
+
+			}
 
 			this.slider.on('mousedown touchstart', this.startHandler);
 			jQuery(document).on('mouseup touchend', this.endHandler);
+
+			this.holder.on('mousedown touchstart', this.holderDownHandler);
 		},
 		setPosition: function(pos){
-			self.slider.css({
+			this.slider.css({
 				left: pos
 			});
 		},

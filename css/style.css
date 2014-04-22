@@ -96,6 +96,7 @@ h1{
     top: -3px;
     width: 10px;
     height: 16px;
+    margin-left: -5px;
     background: #000;
     cursor: pointer;
 }
