@@ -33,6 +33,7 @@ jQuery(function(){
 		},
 		attachEvents:function(){
 			var self = this;
+			var quickStep;
 
 			this.startHandler = function(e){
 				console.log('start');
@@ -57,24 +58,27 @@ jQuery(function(){
 
 				jQuery(document).off('mousemove touchmove', self.moveHandler);
 			}
-			this.holderDownHandler = function(e){
+			this.quickStepHandler = function(e){
 				e.preventDefault();
 
+				quickStep = 0.2 * self.holder.width();
 				var curPos = e.pageX - self.holderOffsetX;
 				var sliderPos = parseInt(self.slider.css('left'));
 
+
 				if (curPos > sliderPos){
-					self.setPosition(sliderPos)
+					self.setPosition(sliderPos + quickStep);
+					self.quickStepHandler();
 				} else {
-
+					self.setPosition(sliderPos - quickStep);
+					self.quickStepHandler();
 				}
-
 			}
 
 			this.slider.on('mousedown touchstart', this.startHandler);
 			jQuery(document).on('mouseup touchend', this.endHandler);
 
-			this.holder.on('mousedown touchstart', this.holderDownHandler);
+			this.holder.on('mousedown touchstart', this.quickStepHandler);
 		},
 		setPosition: function(pos){
 			this.slider.css({
