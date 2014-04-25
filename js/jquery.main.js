@@ -2,6 +2,36 @@ jQuery(function(){
 	jQuery('.slider-holder').dcSlider();
 });
 
+// I just leave it here
+jQuery.fn.rightInit = function(options){
+	var options = jQuery.extend({
+		stopParent:'body'
+	}, options);
+	
+	return this.each(function(){
+		var holder = jQuery(this);
+		var hiddenParents = jQuery();
+
+		function showHiddenBlock(block){
+			if (block.is(options.stopParent)) return;
+
+			if (block.is(':hidden')){
+				hiddenParents = hiddenParents.add(block);
+				block.show();
+			}
+			showHiddenBlock(block.parent());
+		}
+		showHiddenBlock(holder);
+
+		if (typeof options.init === 'function'){
+			options.init.call(holder);
+		}
+
+		hiddenParents.hide();
+	});
+}
+
+
 /*
  * Slider plugin
 */
